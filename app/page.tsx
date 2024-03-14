@@ -1,5 +1,16 @@
-export default function Home() {
+import Header from "../components/header";
+import Home from "../components/home";
+import Container from "../shared/container";
+
+const Page = () => {
   return (
-    <p>Hello next 14</p>
+    <Container>
+      <div className="w-full max-w-screen-lg mt-20">
+        <Header />
+        <Home />
+      </div>
+    </Container>
   );
 }
+
+export default Page;
