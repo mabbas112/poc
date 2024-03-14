@@ -7,7 +7,7 @@ const Card = () => {
             <Image
                 width={200}
                 height={200}
-                src={'/profile.jpeg'}
+                src={"/demo-image.jpeg"}
                 alt="Profile"
             />
         </div>
