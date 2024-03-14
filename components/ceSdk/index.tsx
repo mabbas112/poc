@@ -1,7 +1,7 @@
 'use client';
 import CreativeEditorSDK from '@cesdk/cesdk-js';
-
 import { useEffect, useRef } from 'react';
+import createBlog from '../../utils/createBlog';
 
 interface Props {
     config?: any
@@ -17,14 +17,22 @@ const CeSdk = ({ config = {} }: Props) => {
                 'https://cdn.img.ly/packages/imgly/cesdk-js/1.22.0/assets';
             config.callbacks = { onUpload: 'local' };
 
-
             CreativeEditorSDK.create(cesdk_container.current, config).then(
                 async (instance) => {
-                    instance.addDefaultAssetSources();
-                    instance.addDemoAssetSources({ sceneMode: 'Design' });
-                    await instance.createDesignScene();
+
+                    const blog = await createBlog('/demo-image.jpeg');
+
+                    if (blog) {
+                        await instance.createFromImage(blog);
+                    }
+
+                    instance.engine.block.findByType('graphic')[0];
                 }
             );
+        }
+
+        return () => {
+            cesdk_container.current = null;
         }
     }, [config]);
 
