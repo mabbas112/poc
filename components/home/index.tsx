@@ -1,4 +1,4 @@
-import CeSdk from "../ceSdk";
+import CreativeEditorSDKWithNoSSR from "../ceSdk";
 import Card from "./card";
 
 const Home = () => {
@@ -15,7 +15,7 @@ const Home = () => {
                     return <Card key={index} />
                 })
             }
-            <CeSdk config={config} />
+            <CreativeEditorSDKWithNoSSR config={config} />
         </div>
     );
 }
