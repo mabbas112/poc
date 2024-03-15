@@ -19,7 +19,7 @@ const Header = ({ imageHandler }: Props) => {
                 <Input
                     id="file-upload"
                     type="file"
-                    inputProps={{ 'aria-label': 'upload file' }}
+                    inputProps={{ 'aria-label': 'upload file', accept:"image/png, image/jpg, image/jpeg"}}
                     onChange={handleFileUpload}
                     style={{ display: 'none' }}
                 />

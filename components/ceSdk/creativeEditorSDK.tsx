@@ -24,6 +24,7 @@ const CeSdk = ({ image, config }: Props) => {
 
                     const callbackHandler = async (blob: any) => {
                         const objectUrl = await removeImageBackground(blob);
+                        // const objectUrl = URL.createObjectURL(blob);
                         objectUrl && await instance.createFromImage(objectUrl);
 
                     }
