@@ -1,17 +1,18 @@
+'use client'
 import Image from "next/image";
-
+import Grid from '@mui/material/Grid';
 
 const Card = () => {
     return (
-        <div className="bg-gray-300 h-60 flex justify-center items-center">
+        <Grid item xs={4}>
             <Image
                 id={"image"}
-                width={200}
-                height={200}
+                width={375}
+                height={375}
                 src={"/demo-image.jpeg"}
                 alt="Profile"
             />
-        </div>
+        </Grid>
     );
 }
 

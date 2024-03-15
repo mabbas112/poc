@@ -1,10 +1,9 @@
-const createBlog = async (filePath: string) => {
+const createBlog: any = async (filePath: string) => {
     try {
         const blob = await fetch(filePath).then(
             (response) => response.blob()
         );
-        const objectURL = URL.createObjectURL(blob);
-        return objectURL;
+        return blob;
     } catch (e) {
         console.log("Error while generating blob", e)
         return null;

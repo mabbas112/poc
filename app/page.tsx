@@ -1,14 +1,10 @@
-import Header from "../components/header";
 import Home from "../components/home";
-import Container from "../shared/container";
+import Container from '@mui/material/Container';
 
 const Page = () => {
   return (
-    <Container>
-      <div className="w-full max-w-screen-lg mt-20">
-        <Header />
-        <Home />
-      </div>
+    <Container sx={{ marginTop: '100px' }}>
+      <Home />
     </Container>
   );
 }

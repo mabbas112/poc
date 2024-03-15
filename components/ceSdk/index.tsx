@@ -1,14 +1,20 @@
 import dynamic from 'next/dynamic'
 
 interface Props {
-    config: any
+    image?: File
 }
-const CreativeEditorSDKWithNoSSR = ({ config }: Props) => {
+const CreativeEditorSDKWithNoSSR = ({ image }: Props) => {
+
+    let config = {
+        license: "",
+        baseURL: ''
+    };
+
     const CeSDKwithNoSSR = dynamic(() => import('./creativeEditorSDK'), {
         ssr: false
     })
 
-    return <CeSDKwithNoSSR config={config} />
+    return <CeSDKwithNoSSR image={image} config={config} />
 }
 
 export default CreativeEditorSDKWithNoSSR;
