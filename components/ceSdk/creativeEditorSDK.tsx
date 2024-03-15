@@ -2,28 +2,35 @@
 import CreativeEditorSDK from '@cesdk/cesdk-js';
 import { useEffect, useRef } from 'react';
 import createBlog from '../../utils/createBlog';
+import { fileToBlobConverter } from '../../utils/fileToBlobConverter';
+import removeImageBackground from '../../utils/removeImageBackground';
 
 interface Props {
-    config?: any
+    config: any
+    image?: File
 }
-const CeSdk = ({ config = {} }: Props) => {
+const CeSdk = ({ image, config }: Props) => {
 
     const cesdk_container = useRef(null);
 
     useEffect(() => {
         if (cesdk_container.current) {
             config.license = process.env.NEXT_PUBLIC_LICENSE;
-            config.baseURL =
-                'https://cdn.img.ly/packages/imgly/cesdk-js/1.22.0/assets';
+            config.baseURL = 'https://cdn.img.ly/packages/imgly/cesdk-js/1.22.0/assets';
             config.callbacks = { onUpload: 'local' };
 
             CreativeEditorSDK.create(cesdk_container.current, config).then(
                 async (instance) => {
 
-                    const blog = await createBlog('/demo-image.jpeg');
+                    const callbackHandler = async (blob: any) => {
+                        const objectUrl = await removeImageBackground(blob);
+                        objectUrl && await instance.createFromImage(objectUrl);
 
-                    if (blog) {
-                        await instance.createFromImage(blog);
+                    }
+
+                    const blob = image ? fileToBlobConverter(image, callbackHandler) : await createBlog('/demo-image.jpeg');
+                    if (blob) {
+                        callbackHandler(blob);
                     }
 
                     instance.engine.block.findByType('graphic')[0];
@@ -40,7 +47,7 @@ const CeSdk = ({ config = {} }: Props) => {
     return (
         <div
             ref={cesdk_container}
-            style={{ width: '55vw', height: '600px' }}
+            style={{ width: '100%', height: '600px' }}
         ></div>
     );
 };

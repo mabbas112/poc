@@ -1,22 +1,30 @@
+'use client'
+import { Fragment, useState } from "react";
 import CreativeEditorSDKWithNoSSR from "../ceSdk";
+import Header from "../header";
 import Card from "./card";
+import { Grid, Box } from '@mui/material';
 
 const Home = () => {
 
-    const config = {
-        license: "",
-        baseURL: ''
-    };
+    const [image, setImage] = useState<File>();
+
+    const imageHandler = (file: File) => {
+        setImage(file)
+    }
 
     return (
-        <div className="grid grid-cols-3 gap-4">
-            {
-                [1, 2, 3, 4, 5, 6].map((item, index) => {
-                    return <Card key={index} />
-                })
-            }
-            <CreativeEditorSDKWithNoSSR config={config} />
-        </div>
+        <Fragment>
+            <Header imageHandler={imageHandler} />
+            <Grid container spacing={2}>
+                {[...Array(6)].map((_, index) => (
+                    <Card key={index} />
+                ))}
+            </Grid>
+            <Box sx={{ marginTop: '20px' }}>
+                <CreativeEditorSDKWithNoSSR image={image} />
+            </Box>
+        </Fragment>
     );
 }
 
