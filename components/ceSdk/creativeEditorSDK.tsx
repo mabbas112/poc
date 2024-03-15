@@ -25,13 +25,12 @@ const CeSdk = ({ image, config }: Props) => {
                     const callbackHandler = async (blob: any) => {
                         const objectUrl = await removeImageBackground(blob);
                         objectUrl && await instance.createFromImage(objectUrl);
-                        
+
                     }
 
                     const blob = image ? fileToBlobConverter(image, callbackHandler) : await createBlog('/demo-image.jpeg');
                     if (blob) {
-                        const objectUrl = await removeImageBackground(blob);
-                        objectUrl && await instance.createFromImage(objectUrl);
+                        callbackHandler(blob);
                     }
 
                     instance.engine.block.findByType('graphic')[0];
